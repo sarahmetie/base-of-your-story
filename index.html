@@ -19,7 +19,7 @@
             <h1 class="text-4xl md:text-5xl font-black mt-4 tracking-tight">THE BASE OF YOUR STORY</h1>
             <p class="text-xl text-emerald-100 mt-3 font-medium">One diamond. Every background. Welcome to the team.</p>
             <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#locator" class="bg-white text-emerald-900 hover:bg-emerald-50 font-bold px-8 py-3.5 rounded-xl shadow-lg transition duration-200">Find a Free Clinic</a>
+                <a href="#locator" class="bg-white text-emerald-900 hover:bg-emerald-50 font-bold px-8 py-3.5 rounded-xl shadow-lg transition duration-200">Open Directory Locator</a>
                 <a href="#gear" class="bg-emerald-700/40 border border-emerald-500/30 hover:bg-emerald-700/60 font-semibold px-8 py-3.5 rounded-xl transition duration-200">Gear Donation Loop</a>
             </div>
         </div>
@@ -39,22 +39,22 @@
     <!-- Interactive Locator Section -->
     <section id="locator" class="max-w-5xl mx-auto px-6 py-12 scroll-mt-6">
         <div class="text-center max-w-2xl mx-auto mb-10">
-            <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Interactive Clinic & Ballpark Locator</h2>
-            <p class="text-slate-600 mt-2">Select your county below to instantly view upcoming free clinics, community scrimmages, and partner locations near you.</p>
+            <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Interactive Location Hub</h2>
+            <p class="text-slate-600 mt-2">Tap your local county below to instantly explore designated community ballparks and check active clinic schedules.</p>
         </div>
 
         <!-- Filter Buttons -->
-        <div class="flex flex-wrap justify-center gap-3 mb-8">
-            <button onclick="filterCounty('all')" id="btn-all" class="filter-btn active-btn font-bold px-6 py-2.5 rounded-xl border border-slate-200 shadow-sm text-sm cursor-pointer transition">All Counties</button>
+        <div class="flex flex-wrap justify-center gap-3 mb-10">
+            <button onclick="filterCounty('all')" id="btn-all" class="filter-btn active-btn font-bold px-6 py-2.5 rounded-xl border border-slate-200 shadow-sm text-sm cursor-pointer transition">All Regions</button>
             <button onclick="filterCounty('wayne')" id="btn-wayne" class="filter-btn bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-2.5 rounded-xl border border-slate-200 shadow-sm text-sm cursor-pointer transition">Wayne County</button>
             <button onclick="filterCounty('oakland')" id="btn-oakland" class="filter-btn bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-2.5 rounded-xl border border-slate-200 shadow-sm text-sm cursor-pointer transition">Oakland County</button>
             <button onclick="filterCounty('macomb')" id="btn-macomb" class="filter-btn bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-2.5 rounded-xl border border-slate-200 shadow-sm text-sm cursor-pointer transition">Macomb County</button>
             <button onclick="filterCounty('washtenaw')" id="btn-washtenaw" class="filter-btn bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-2.5 rounded-xl border border-slate-200 shadow-sm text-sm cursor-pointer transition">Washtenaw County</button>
         </div>
 
-        <!-- Cards Container -->
-        <div id="cards-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Cards will be injected dynamically via JS -->
+        <!-- Dynamic Output Container -->
+        <div id="dynamic-content" class="space-y-12">
+            <!-- JavaScript will inject Sections Here dynamically -->
         </div>
     </section>
 
@@ -84,53 +84,86 @@
 
     <!-- Interactive Data Filtering Logic -->
     <script>
-        const locationData = [
-            { id: 1, county: 'wayne', name: 'Jayne Field', type: 'Free Neighborhood Clinic', desc: 'Full-day basic skills workshop led by varsity student-athletes. Free equipment provided on site.', tag: 'Community Access' },
-            { id: 2, county: 'wayne', name: 'Chandler Park', type: 'Free Community Scrimmage', desc: 'Casual, low-pressure sandlot games designed to build confidence and joy in the sport.', tag: 'Fun First' },
-            { id: 3, county: 'wayne', name: 'Detroit Edison Academy', type: 'Alumni Assembly Hub', desc: 'Inspirational school assemblies and mentorship panels talking about life foundations.', tag: 'Mentorship' },
-            { id: 4, county: 'macomb', name: 'Total Sports Warren', type: 'Free Indoor Clinic', desc: 'Off-season hitting and fielding workshops hosted completely indoors out of winter elements.', tag: 'Skills Training' },
-            { id: 5, county: 'macomb', name: 'Clinton Twp Municipal Parks', type: 'Free Fall League Games', desc: 'Accessible local tournament circuits structured entirely without weekend travel demands.', tag: 'Zero Travel' },
-            { id: 6, county: 'oakland', name: 'Detroit Country Day School', type: 'Premium Fundraiser Camp', desc: 'Premium $50 instructional training camp where revenue completely funds municipal free clinic gear.', tag: 'Gear Hub' },
-            { id: 7, county: 'washtenaw', name: 'U-M Alumni Field', type: 'Youth Instructional Day', desc: 'Experience playing on a collegiate diamond with premier training setups and dynamic equipment drives.', tag: 'University Day' }
+        // Real geographical local fields and data
+        const ballparkData = [
+            { county: 'wayne', name: 'Jayne Field Diamonds', address: '11201 Conant St, Detroit, MI 48212' },
+            { county: 'wayne', name: 'Chandler Park Baseball Fields', address: '12600 Chandler Park Dr, Detroit, MI 48213' },
+            { county: 'wayne', name: 'Detroit Edison Academy Field', address: '1903 Wilkins St, Detroit, MI 48207' },
+            { county: 'macomb', name: 'Total Sports Warren (Indoor Hub)', address: '4050 E 12 Mile Rd, Warren, MI 48092' },
+            { county: 'macomb', name: 'Halmich Park Baseball Diamonds', address: '3001 13 Mile Rd, Warren, MI 48092' },
+            { county: 'oakland', name: 'Detroit Country Day Athletic Complex', address: '22305 W 13 Mile Rd, Beverly Hills, MI 48025' },
+            { county: 'oakland', name: 'Bloomer Park Baseball Diamonds', address: '345 John R Rd, Rochester Hills, MI 48307' },
+            { county: 'washtenaw', name: 'U-M Alumni Field / Ray Fisher Stadium', address: '1114 S State St, Ann Arbor, MI 48109' },
+            { county: 'washtenaw', name: 'Veterans Memorial Park Diamonds', address: '2150 Jackson Ave, Ann Arbor, MI 48103' }
         ];
 
         function filterCounty(county) {
-            // Update Active Buttons
+            // 1. Handle Active Style Switching for Buttons
             document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active-btn', 'bg-white', 'text-slate-700 font-semibold');
+                btn.classList.remove('active-btn', 'bg-white', 'text-slate-700', 'font-semibold');
                 btn.classList.add('bg-white', 'text-slate-700', 'font-semibold');
             });
-            const activeBtn = document.getElementById(`btn-${county}`);
-            activeBtn.classList.remove('bg-white', 'text-slate-700', 'font-semibold');
-            activeBtn.classList.add('active-btn');
+            document.getElementById(`btn-${county}`).classList.remove('bg-white', 'text-slate-700', 'font-semibold');
+            document.getElementById(`btn-${county}`).classList.add('active-btn');
 
-            // Filter Display Items
-            const grid = document.getElementById('cards-grid');
-            grid.innerHTML = '';
+            // 2. Filter Ballpark Content
+            const filteredBallparks = county === 'all' ? ballparkData : ballparkData.filter(b => b.county === county);
             
-            const filtered = county === 'all' ? locationData : locationData.filter(item => item.county === county);
+            // 3. Generate HTML Blocks dynamically
+            const displayContainer = document.getElementById('dynamic-content');
             
-            filtered.forEach(item => {
-                grid.innerHTML += `
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between transition hover:shadow-md">
+            let ballparkCardsHTML = '';
+            filteredBallparks.forEach(ballpark => {
+                ballparkCardsHTML += `
+                    <div class="bg-white p-5 rounded-xl shadow-xs border border-slate-200/60 flex flex-col justify-between">
                         <div>
-                            <div class="flex justify-between items-center gap-2">
-                                <span class="bg-emerald-50 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">${item.county} County</span>
-                                <span class="text-slate-400 text-xs font-medium">${item.tag}</span>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-slate-100 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">${ballpark.county} Co.</span>
+                                <span class="text-emerald-600 text-xs font-semibold">📍 Field Location</span>
                             </div>
-                            <h3 class="text-xl font-bold text-slate-900 mt-3">${item.name}</h3>
-                            <p class="text-sm font-semibold text-emerald-600 mt-0.5">${item.type}</p>
-                            <p class="text-slate-500 text-sm mt-3 leading-relaxed">${item.desc}</p>
+                            <h4 class="text-base font-bold text-slate-900 mt-2.5">${ballpark.name}</h4>
+                            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">${ballpark.address}</p>
                         </div>
-                        <div class="mt-6 pt-4 border-t border-slate-100">
-                            <a href="#" onclick="alert('This maps feature is simulated for this presentation assignment.'); return false;" class="text-slate-800 hover:text-emerald-700 font-bold text-sm inline-flex items-center gap-1">Get Directions →</a>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <span class="text-slate-400 font-medium">Public Diamond Access</span>
+                            <a href="#" onclick="alert('Navigation route mappings are simulated for this classroom project.'); return false;" class="text-emerald-700 font-bold hover:underline">View Map →</a>
                         </div>
                     </div>
                 `;
             });
+
+            // Reconstruct page layout with two independent sub-sections per criteria
+            displayContainer.html = '';
+            displayContainer.innerHTML = `
+                <!-- Section 1: Ballparks in the Area -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4 border-b border-slate-200 pb-2">
+                        <span class="text-xl">🏟️</span>
+                        <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wide">Ballparks in the Area</h3>
+                    </div>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        ${ballparkCardsHTML}
+                    </div>
+                </div>
+
+                <!-- Section 2: Clinics Status -->
+                <div class="pt-2">
+                    <div class="flex items-center gap-3 mb-4 border-b border-slate-200 pb-2">
+                        <span class="text-xl">📋</span>
+                        <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wide">Upcoming Open Clinics</h3>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-200/70 rounded-xl p-5 flex items-center gap-4">
+                        <div class="text-amber-500 text-2xl bg-amber-100/60 w-10 h-10 rounded-full flex items-center justify-center shrink-0">⏳</div>
+                        <div>
+                            <h5 class="text-sm font-bold text-amber-900">Schedule Status Notice</h5>
+                            <p class="text-xs font-medium text-amber-700 mt-0.5">No live clinics currently, come back later!</p>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
-        // Initialize grid view
+        // Initialize display content layout
         filterCounty('all');
     </script>
 </body>
